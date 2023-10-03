@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+
+import { auth } from "./services/firebase";
+
+import { AppContext } from "./contexts/AppContext";
+
+import Homepage from "./pages/Homepage";
+
+import Login from "./components/Login";
+
+import "./App.css";
 
 function App() {
+  // const { user, setUser } = useContext(UserContext);
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <AppContext.Provider value={{ user }}>
+        <h1>My Condo App</h1>
+        {user ? <Homepage /> : <Login />}
+      </AppContext.Provider>
     </div>
   );
 }
