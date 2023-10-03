@@ -1,31 +1,64 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import {
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
 
 import { auth } from "./services/firebase";
 
 import { AppContext } from "./contexts/AppContext";
 
-import Homepage from "./pages/Homepage";
+import DashboardPage from "./pages/Dashboard";
+import HomePage from "./pages/Homepage";
+import IssuesPage from "./pages/IssuesPage";
+import MarketplacePage from "./pages/Marketplace";
+import NotFound from "./pages/NotFound";
 
-import Login from "./components/Login";
+import Layout from "./components/layouts/base";
 
 import "./App.css";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomePage />,
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardPage />,
+  },
+  {
+    path: "/issues",
+    element: <IssuesPage />,
+  },
+  {
+    path: "/market",
+    element: <MarketplacePage />,
+  },
+  {
+    path: "*",
+    element: <NotFound />
+  },
+]);
+
 
 function App() {
   // const { user, setUser } = useContext(UserContext);
   const [user, setUser] = useState();
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setUser(user);
+    auth.onAuthStateChanged((userState) => {
+      setUser(userState);
     });
   }, []);
 
   return (
     <div>
-      <AppContext.Provider value={{ user }}>
-        <h1>My Condo App</h1>
-        {user ? <Homepage /> : <Login />}
-      </AppContext.Provider>
+        <AppContext.Provider value={{ user }}>
+        <Layout>
+            <RouterProvider router={router} />
+        </Layout>
+        </AppContext.Provider>
     </div>
   );
 }
