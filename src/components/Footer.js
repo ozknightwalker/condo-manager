@@ -96,7 +96,10 @@ const Footer = () => {
                     flexGrow: 1,
                     ml: 8,
                     }}>
-                    <Image src='/logo128.png' />
+                    <Image
+                        borderRadius='full'
+                        src='/logo128.png'
+                        alt='DCC Unit Association Logo'/>
                 </Flex>
                 <Text pt={6} fontSize={'sm'} textAlign={'center'}>
                     © {new Date().getFullYear()} DCC Unit Association. All rights reserved
