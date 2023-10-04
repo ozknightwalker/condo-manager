@@ -2,7 +2,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 
 import firebase from "firebase/compat/app";
-import { getFirestore, memoryLocalCache, initializeFirestore } from "firebase/firestore";
+import { memoryLocalCache, initializeFirestore } from "firebase/firestore";
 import "firebase/compat/auth";
 
 const firebaseConfig = {
