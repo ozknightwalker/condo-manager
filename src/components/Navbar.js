@@ -17,6 +17,7 @@ import {
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react";
+import { useNavigate, Link as RouteLink } from "react-router-dom";
 
 import { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
@@ -58,7 +59,12 @@ const LoggedInUserNavBarItems = ({user}) => {
 const AnonymousUserNavBarItems = () => {
     return (
         <Menu>
-            <MenuItem onClick={signInWithGoogle}>Login</MenuItem>
+            <MenuButton
+                as={Button}
+                onClick={signInWithGoogle}
+                >
+                Login
+            </MenuButton>
         </Menu>
     )
 };
@@ -67,7 +73,7 @@ const NavLink = (props) => {
     const { children } = props;
 
     return (
-      <Box
+      <RouteLink
         as="a"
         px={2}
         py={1}
@@ -76,16 +82,18 @@ const NavLink = (props) => {
           textDecoration: 'none',
           bg: useColorModeValue('gray.200', 'gray.700'),
         }}
-        href={children.toLowerCase()}>
+        to={children.toLowerCase()}>
         {children}
-      </Box>
+      </RouteLink>
     )
 };
 
-const Links = ['Dashboard', 'Issues', 'Market']
+const Links = ['Dashboard', 'Issues', 'Marketplace']
 
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   const { user } = useContext(AppContext);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -102,7 +110,13 @@ const Navbar = () => {
                     onClick={isOpen ? onClose : onOpen}
                 />
                 <HStack spacing={8} alignItems={'center'}>
-                <Box as="a" href={"/"}>Deo City Condominium</Box>
+                <Box
+                    as="a"
+                    onClick={() => navigate('/')}
+                    bgGradient="linear(to-r, primary.400, primary.600)"
+                    backgroundClip="text">
+                    Deo City Condominium
+                </Box>
                 <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
                 {Links.map((link) => (
                     <NavLink key={link}>{link}</NavLink>
