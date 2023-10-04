@@ -9,6 +9,8 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 
+import { Link as RouteLink } from "react-router-dom";
+
 
 const ListHeader = ({ children }) => {
     return (
@@ -28,18 +30,18 @@ const Footer = () => {
                 <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
                     <Stack align={'flex-start'}>
                         <ListHeader>Site</ListHeader>
-                        <Box as="a" href={'/'}>
+                        <RouteLink as="a" to="/">
                             Homepage
-                        </Box>
-                        <Box as="a" href={'dashboard'}>
+                        </RouteLink>
+                        <RouteLink as="a" to="dashboard">
                             Dashboard
-                        </Box>
-                        <Box as="a" href={'issues'}>
+                        </RouteLink>
+                        <RouteLink as="a" to="issues">
                             Issues
-                        </Box>
-                        <Box as="a" href={'market'}>
+                        </RouteLink>
+                        <RouteLink as="a" to="marketplace">
                             Marketplace
-                        </Box>
+                        </RouteLink>
                     </Stack>
                     {/* <Stack align={'flex-start'}>
                         <ListHeader>Legal</ListHeader>

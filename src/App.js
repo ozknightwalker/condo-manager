@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import {
-  RouterProvider,
-  createBrowserRouter,
+    Route,
+    RouterProvider,
+    createBrowserRouter,
+    createRoutesFromElements
 } from "react-router-dom";
 
 import { auth } from "./services/firebase";
@@ -18,28 +20,18 @@ import Layout from "./components/layouts/base";
 
 import "./App.css";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomePage />,
-  },
-  {
-    path: "/dashboard",
-    element: <DashboardPage />,
-  },
-  {
-    path: "/issues",
-    element: <IssuesPage />,
-  },
-  {
-    path: "/market",
-    element: <MarketplacePage />,
-  },
-  {
-    path: "*",
-    element: <NotFound />
-  },
-]);
+
+const router = createBrowserRouter(
+    createRoutesFromElements((
+        <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="issues" element={<IssuesPage />} />
+            <Route path="marketplace" element={<MarketplacePage />} />
+            <Route path="*" element={<NotFound />} />
+        </Route>
+    ))
+)
 
 
 function App() {
@@ -53,13 +45,9 @@ function App() {
   }, []);
 
   return (
-    <div>
-        <AppContext.Provider value={{ user }}>
-        <Layout>
-            <RouterProvider router={router} />
-        </Layout>
-        </AppContext.Provider>
-    </div>
+    <AppContext.Provider value={{ user }}>
+        <RouterProvider router={router} />
+    </AppContext.Provider>
   );
 }
 
