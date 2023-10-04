@@ -2,6 +2,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 
 import firebase from "firebase/compat/app";
+import { getFirestore, memoryLocalCache, initializeFirestore } from "firebase/firestore";
 import "firebase/compat/auth";
 
 const firebaseConfig = {
@@ -28,5 +29,7 @@ export const signInWithGoogle = async () => {
       console.error("Google Sign-In error:", error.message)
     });
 };
+
+export const db = initializeFirestore(firebaseApp, {localCache: memoryLocalCache()});
 
 export default firebaseApp;
