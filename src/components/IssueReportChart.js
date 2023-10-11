@@ -68,6 +68,7 @@ const IssueReportsChart = ({ issue_id }) => {
 
     useEffect(() => {
         fetchReportsData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [issue_id]);
 
     return (
