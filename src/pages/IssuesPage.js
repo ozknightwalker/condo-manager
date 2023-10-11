@@ -12,7 +12,6 @@ const IssuesPage = () => {
         await issuesList()
             .then((issuesData) => {
                 setIssues(issuesData);
-                console.log(issuesData);
             })
             .catch((e) => {
                 console.error(e);

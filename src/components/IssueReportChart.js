@@ -47,10 +47,6 @@ const IssueReportsChart = ({ issue_id }) => {
             }
         }
 
-        if (maxCounter === 0) {
-            setMaxCounter(2);
-        }
-
         setReportData({
             labels: labels.map((item) => item.format("DD/MM/YYYY")),
             datasets: [
@@ -70,6 +66,13 @@ const IssueReportsChart = ({ issue_id }) => {
         fetchReportsData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [issue_id]);
+
+    useEffect(() => {
+        if (maxCounter === 0) {
+            setMaxCounter(2);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [reportData.datasets]);
 
     return (
         <div>
